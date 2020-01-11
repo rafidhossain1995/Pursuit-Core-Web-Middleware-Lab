@@ -10,17 +10,17 @@ const animals = ["cat", "dog", "rabbit", "giraffe", "lion", "penguin", "anteater
 const isAnimal = (req, res, next) =>{
     console.log("The Middleware isAnimal is running");
     if(animals.includes(req.params.id)){
-        res.json({status: "success",
-                  message: true})
+        next();
     }else{
         res.json({status: "fail",
                   message: false})
     }
 
-    next();
+    
 }
 app.get("/animal/:id", isAnimal,(req, res)=>{
-    res.json();
+res.json({status: "success",
+message: true});
 });
 
 app.listen(port,()=>{
