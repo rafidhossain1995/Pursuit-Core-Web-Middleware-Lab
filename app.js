@@ -3,24 +3,12 @@ const cors = require("cors");
 const port = 3004;
 
 const app = express();
-app.get(cors());
+app.use(cors());
 
-const animals = ["cat",
-                 "dog",
-                 "rabbit",
-                 "giraffe",
-                 "lion",
-                 "penguin",
-                "anteater"
-]
+const animals = ["cat", "dog", "rabbit", "giraffe", "lion", "penguin", "anteater"];
 
 const isAnimal = (req, res, next) =>{
-    console.log("Middleware isAnimal has been fired");
-    next();
-}
-app.use("/animal/:id", isAnimal);
-
-app.get("/animal/:id", (req, res) => {
+    console.log("The Middleware isAnimal is running");
     if(animals.includes(req.params.id)){
         res.json({status: "success",
                   message: true})
@@ -29,7 +17,11 @@ app.get("/animal/:id", (req, res) => {
                   message: false})
     }
 
-})
+    next();
+}
+app.get("/animal/:id", isAnimal,(req, res)=>{
+    res.json();
+});
 
 app.listen(port,()=>{
     console.log("You are now listening to port " + port)
