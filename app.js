@@ -4,9 +4,28 @@ const port = 3004;
 
 const app = express();
 
-let animals = []
+const animals = [
+    {animal: "cat"},
+    {animal:"dog"},
+    {animal:"rabbit"},
+    {animal:"giraffe"},
+    {animal:"lion"},
+    {animal:"penguin"},
+    {animal:"anteater"}
+]
 
-app.get("/animal", (req, res) =>{
+
+app.get("/animal/:id", (req, res) => {
+    animals.forEach(animal =>{
+        if(animal.id === req.params.id){
+            res.json({status: "success",
+                      message: true})
+        }else{
+            res.json({status: "fail",
+                      message: false})
+        }
+
+    })
 
 })
 
