@@ -23,6 +23,30 @@ res.json({status: "success",
 message: true});
 });
 
+const randNumber = (req, res, next) =>{
+    let output = []
+    let randomNumber = Math.floor(Math.random()*output.length-1)
+    res.json(
+        output[randomNumber]
+    )
+}
+const generateSpread = (req, res, next) =>{
+    let floor = req.params.floor
+    let ceiling = req.params.ceiling
+    for(let i = floor; i <= ceiling; i++){
+        res.json({
+            result:randNumber
+        })    
+    }
+    next()
+}
+app.get("/random/:floor:/ceiling",generateSpread,randNumber)
+
+    
+
+
+
+
 app.listen(port,()=>{
     console.log("You are now listening to port " + port)
 })
